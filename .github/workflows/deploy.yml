@@ -1,0 +1,25 @@
+name: Deploy Ethernet Dashboard to alety.kesug.com
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to InfinityFree alety.kesug.com/htdocs
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.INFINITYFREE_FTP_USERNAME }}
+          password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+          server-dir: /alety.kesug.com/htdocs/
+          protocol: ftp
+          port: 21
+          dangerous-clean-slate: false
+          log-level: standard
