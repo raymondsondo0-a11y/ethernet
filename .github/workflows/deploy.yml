@@ -1,4 +1,4 @@
-name: Deploy Ethernet Dashboard to alety.kesug.com
+name: Deploy Mzee Exaudy Mdegellah Memorial to alety.kesug.com
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to InfinityFree alety.kesug.com/htdocs
+      - name: Deploy memorial website to InfinityFree alety.kesug.com/htdocs
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftpupload.net
