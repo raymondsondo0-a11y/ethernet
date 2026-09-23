@@ -91,4 +91,69 @@ $(function(){
       $('html,body').animate({scrollTop:target.offset().top-78},650);
     }
   });
+
+  /* Letter-by-letter memorial reveal: words/content are untouched.
+     Characters are revealed only when their section enters the viewport. */
+  function prepareTypewriter(selector){
+    $(selector).each(function(){
+      const root=this;
+      if(root.dataset.typePrepared==='1') return;
+      root.dataset.typePrepared='1';
+
+      const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+      const nodes=[];
+      let node;
+      while((node=walker.nextNode())) nodes.push(node);
+
+      nodes.forEach(function(textNode){
+        if(!textNode.nodeValue.trim()) return;
+        const frag=document.createDocumentFragment();
+        Array.from(textNode.nodeValue).forEach(function(ch){
+          if(ch===' ' || ch==='\n' || ch==='\t'){
+            frag.appendChild(document.createTextNode(ch));
+          }else{
+            const span=document.createElement('span');
+            span.className='type-char';
+            span.textContent=ch;
+            frag.appendChild(span);
+          }
+        });
+        textNode.parentNode.replaceChild(frag,textNode);
+      });
+    });
+  }
+
+  function startTypewriter(el){
+    if(el.dataset.typeStarted==='1') return;
+    el.dataset.typeStarted='1';
+    const chars=el.querySelectorAll('.type-char');
+    chars.forEach(function(ch,i){
+      setTimeout(function(){ ch.classList.add('typed'); }, Math.min(i*18, 4200));
+    });
+  }
+
+  const typeTargets=$(
+    '.section-head h2,'+
+    '.memory-card h3,.memory-card p,'+
+    '.family-quote p,'+
+    '.letter p,.signature,'+
+    '.closing h2,.closing-copy,.closing blockquote'
+  );
+
+  prepareTypewriter(typeTargets);
+
+  if(window.IntersectionObserver){
+    const typeObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          startTypewriter(entry.target);
+          typeObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:.10,rootMargin:'0px 0px -6% 0px'});
+    typeTargets.each(function(){typeObserver.observe(this);});
+  }else{
+    typeTargets.each(function(){startTypewriter(this);});
+  }
+
 });
