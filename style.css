@@ -775,3 +775,144 @@ footer span:first-child{color:var(--gold2)}
     background:rgba(7,30,40,.88);
   }
 }
+
+
+/* =========================================================
+   PURE GLASS + CHAMPAGNE GOLD / MEMORIAL LAYER
+   Every visual box uses transparent glass, luminous gold edges,
+   and a Safari/iPhone-safe solid fallback.
+   ========================================================= */
+
+.topbar,
+.memory-player,
+.memory-card,
+.letter,
+.family-facts,
+.family-facts div,
+footer{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.045) 55%,rgba(255,220,145,.035));
+  border:1px solid rgba(255,231,176,.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(255,218,140,.08),
+    0 24px 65px rgba(0,0,0,.28),
+    0 0 0 1px rgba(229,189,105,.035);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);
+  backdrop-filter:blur(22px) saturate(150%);
+}
+
+.topbar{
+  overflow:hidden;
+}
+.topbar:before,
+.memory-player:before,
+.memory-card:after,
+.letter:before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+}
+.topbar:before{
+  left:10%;right:10%;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,#fff4ce,var(--gold2),transparent);
+  opacity:.85;
+}
+.memory-player,
+.memory-card,
+.letter{
+  overflow:hidden;
+}
+.memory-player:before,
+.memory-card:after,
+.letter:before{
+  top:0;left:-35%;width:38%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.13),transparent);
+  transform:skewX(-18deg);
+  animation:glassSweep 9s ease-in-out infinite;
+}
+.memory-card:after{animation-delay:2s}
+.letter:before{animation-delay:4s}
+
+.memory-card,
+.letter,
+.memory-player{
+  border-radius:24px;
+}
+
+.memory-card.large{border-radius:28px}
+.letter{position:relative}
+
+.family-facts{
+  border-radius:22px;
+  overflow:hidden;
+}
+.family-facts div{
+  border:0;
+  border-bottom:1px solid rgba(255,231,176,.16);
+  border-radius:0;
+  box-shadow:none;
+}
+.family-facts div:last-child{border-bottom:0}
+
+.memory-card:hover,
+.memory-player:hover,
+.letter:hover{
+  border-color:rgba(255,226,154,.60);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 30px 78px rgba(0,0,0,.34),
+    0 0 32px rgba(229,189,105,.07);
+}
+
+.hero .dates,
+.hero blockquote{
+  position:relative;
+  z-index:2;
+}
+
+.type-char{
+  opacity:0;
+  display:inline;
+  transition:opacity .035s linear;
+}
+.type-char.typed{opacity:1}
+
+@keyframes glassSweep{
+  0%,45%{left:-40%;opacity:0}
+  55%{opacity:.7}
+  72%,100%{left:120%;opacity:0}
+}
+
+@media(max-width:760px){
+  .topbar,
+  .memory-player,
+  .memory-card,
+  .letter,
+  .family-facts,
+  footer{
+    -webkit-backdrop-filter:blur(18px) saturate(145%);
+    backdrop-filter:blur(18px) saturate(145%);
+  }
+  .memory-card,
+  .letter,
+  .memory-player{border-radius:20px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .memory-card:after,
+  .memory-player:before,
+  .letter:before{animation:none!important}
+  .type-char{opacity:1!important;transition:none!important}
+}
+
+@supports not ((backdrop-filter:blur(1px))){
+  .topbar,
+  .memory-player,
+  .memory-card,
+  .letter,
+  .family-facts,
+  footer{
+    background:rgba(7,34,44,.90);
+  }
+}
