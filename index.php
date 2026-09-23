@@ -7,7 +7,7 @@
 <meta name="description" content="Kumbukumbu ya heshima ya Mzee Exaudy Mdegellah — Septemba 1967 hadi 22 Septemba 2026.">
 <title>Kumbukumbu ya Mzee Exaudy Mdegellah</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260923.2">
+<link rel="stylesheet" href="style.css?v=20260923.3">
 </head>
 <body>
 <div class="page-glow"></div>
@@ -108,6 +108,6 @@
 <footer><span>Mzee Exaudy Mdegellah</span><span>Katika kumbukumbu ya upendo • 1967 — 2026</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="app.js?v=20260923.2"></script>
+<script src="app.js?v=20260923.3"></script>
 </body>
 </html>
