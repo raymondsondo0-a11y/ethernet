@@ -1,4 +1,6 @@
 $(function(){
+  'use strict';
+
   const $topbar=$('.topbar');
   const audio=document.getElementById('memoryAudio');
   const $play=$('#memoryPlay');
@@ -9,7 +11,16 @@ $(function(){
   }).trigger('scroll');
 
   $('.section-head,.memory-card,.family-quote,.family-facts,.letter,.closing > *').addClass('reveal');
-  const observer=new IntersectionObserver(function(entries){
+  const revealTargets=$('.reveal');
+  const revealInView=function(){
+    revealTargets.each(function(){
+      const rect=this.getBoundingClientRect();
+      if(rect.top < window.innerHeight*0.88 && rect.bottom > 0){
+        $(this).addClass('is-visible');
+      }
+    });
+  };
+  const observer=window.IntersectionObserver ? new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(entry.isIntersecting){
         $(entry.target).addClass('is-visible');
@@ -17,7 +28,12 @@ $(function(){
       }
     });
   },{threshold:.12});
-  $('.reveal').each(function(){observer.observe(this);});
+  if(window.IntersectionObserver){
+    revealTargets.each(function(){observer.observe(this);});
+  }else{
+    revealInView();
+    $(window).on('scroll resize',revealInView);
+  }
 
   if(window.matchMedia('(pointer:fine)').matches){
     $('.hero').on('mousemove',function(e){
@@ -33,6 +49,7 @@ $(function(){
 
   $play.on('click',function(){
     if(!audio)return;
+    if(typeof audio.play!=='function')return;
     if(audio.paused){
       audio.play().then(function(){
         $play.text('❚❚').addClass('playing');
@@ -51,7 +68,9 @@ $(function(){
 
   let audioCtx=null;
   $sound.on('click',function(){
-    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+    if(!AudioContextClass)return;
+    if(!audioCtx)audioCtx=new AudioContextClass();
     if(audioCtx.state==='suspended')audioCtx.resume();
     const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
     osc.type='sine';
