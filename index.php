@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#101b2d">
 <meta name="description" content="Kumbukumbu ya heshima ya Mzee Exaudy Mdegellah — Septemba 1967 hadi 22 Septemba 2026.">
 <title>Kumbukumbu ya Mzee Exaudy Mdegellah</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -35,6 +36,11 @@
     <div><small>AMEAGA</small><strong>22 Septemba 2026</strong></div>
   </div>
   <blockquote>“Bwana alitoa, na Bwana ametwaa; jina la Bwana lihimidiwe.”<cite>— Ayubu 1:21</cite></blockquote>
+  <div class="memory-player" aria-label="Wimbo wa kumbukumbu">
+    <button id="memoryPlay" class="memory-play" type="button" aria-label="Cheza wimbo wa kumbukumbu">▶</button>
+    <div class="memory-track"><span>Wimbo wa kumbukumbu ya Mzee Mdegellah</span><small>“is a long day without you my friend and i'll tell you all about when i see you again”</small></div>
+    <audio id="memoryAudio" preload="metadata" src="assets/memorial-song.mp3"></audio>
+  </div>
   <a class="scroll" href="#maisha">Shuka kwenye kumbukumbu <span>↓</span></a>
 </section>
 
@@ -100,6 +106,8 @@
 </main>
 
 <footer><span>Mzee Exaudy Mdegellah</span><span>Katika kumbukumbu ya upendo • 1967 — 2026</span></footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
