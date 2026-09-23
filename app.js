@@ -1,3 +1,16 @@
-const browser=document.getElementById('browser');const platform=document.getElementById('platform');const aState=document.getElementById('aState');const aBadge=document.getElementById('aBadge');const resultText=document.getElementById('resultText');
-function scan(){browser.textContent=navigator.userAgentData?.brands?.map(x=>x.brand+' '+x.version).join(', ')||navigator.appName||'Unknown';platform.textContent=navigator.userAgentData?.platform||navigator.platform||'Unknown';aState.textContent='Browser detected';aBadge.textContent='DETECTED';aBadge.style.color='#9ee7bd';resultText.textContent='Browser information detected. A normal browser cannot directly access Ethernet PHY/TDR or RJ45 pins 1–8. A local diagnostic agent is required to read the NIC hardware capability and send real results to this dashboard.';}
-document.getElementById('scan').addEventListener('click',scan);document.getElementById('reset').addEventListener('click',()=>location.reload());scan();
+const soundBtn=document.getElementById('soundBtn');
+let audioCtx=null;
+soundBtn.addEventListener('click',()=>{
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+  osc.type='sine'; osc.frequency.value=432; gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.035,audioCtx.currentTime+.08);
+  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+2.2);
+  osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime+2.3);
+  soundBtn.textContent='♪';
+  setTimeout(()=>soundBtn.textContent='♫',2500);
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const target=document.querySelector(a.getAttribute('href')); if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});}
+}));
